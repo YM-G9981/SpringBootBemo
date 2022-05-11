@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Service
@@ -25,7 +23,6 @@ public class UserAuthService implements UserDetailsService {
         if(user==null) {
             throw new UsernameNotFoundException("账号不存在");
         }
-        httpServletResponse.addCookie(new Cookie("DemoUsername",username));
         return User
                 .withUsername(user.getUsername())
                 .password(user.getPassword())
