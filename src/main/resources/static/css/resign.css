@@ -1,0 +1,34 @@
+#mid{
+    margin: auto;
+    width: 80%;
+    height: 300px;
+    margin-top: 300px;
+    border:  5px solid gray;
+    border-radius: 25px;
+}
+#title{
+    margin: auto;
+    font-family: 华文楷体;
+    color: orange;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 35px;
+    text-align: center;
+}
+#summit{
+    width: 100px;
+    background-color: blueviolet;
+    text-align: center;
+    color: yellow;
+}
+.tips{
+    text-align: center;
+    text-shadow: blueviolet;
+    font-size: 25px;
+    font-family: 华文行楷;
+}
+#summitdiv{
+    width: 100px;
+    margin: auto;
+}
+

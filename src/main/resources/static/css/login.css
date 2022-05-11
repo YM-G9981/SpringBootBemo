@@ -1,0 +1,40 @@
+#mid{
+    margin: auto;
+    width: 80%;
+    height: 300px;
+    border:  5px solid gray;
+    border-radius: 25px;
+    padding: 0px;
+}
+#gotoresign{
+    width: 100%;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+#summit{
+    width: 100px;
+    background-color: blueviolet;
+    text-align: center;
+    color: yellow;
+}
+.form-group{
+    margin:  auto;
+    margin-top: 30px;
+    width: 60%;
+}
+#summitdiv{
+    margin-top: 60px;
+    width: 100px;
+    margin: auto;
+}
+#title{
+    margin-top: 200px;
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+    font-size: 60px;
+    color: darkorange;
+    font-family: 方正姚体;
+    text-shadow: blue;
+}

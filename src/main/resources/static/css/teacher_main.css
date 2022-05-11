@@ -1,0 +1,58 @@
+.table{
+    width: 75%;
+    margin-left: 10%;
+    text-align: center;
+    margin-top: 150px;
+}
+#inputtable{
+    font-size: 15px;
+    vertical-align: middle;
+    font-size: 20px;
+    text-shadow: blue;
+    color: darkorange;
+}
+#selectdiv{
+    text-align: center;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 25px;
+}
+#meau{
+
+    width: 10%;
+    height: 300px;
+    position: absolute;
+    right: 0px;
+    top: 300px;
+
+}
+#welcone{
+    width: 10%;
+    height: 50px;
+    position: absolute;
+    right: 0px;
+    top: 250px;
+    font-size: 20px;
+    text-align: center;
+
+}
+.option{
+    margin-top: 15px;
+    width: 90%;
+    font-style: normal;
+    text-align: center;
+
+}
+#exit{
+    background-color: red;
+    color: white;
+}
+#inputsummit{
+    width: 150px;
+}
+.selects{
+    margin: auto;
+    margin-top: 25px;
+    width: 50%;
+    text-align: center;
+}

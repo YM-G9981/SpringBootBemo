@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org
+      xmlns:sec=http://www.thymeleaf.org/extras/spring-security>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:object="${user}">
+    欢迎您，<span th:text="*{username}"></span>
+</div>
+<table >
+
+</table>
+<a href="/logout"><button> 退出</button></a>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org
+      xmlns:sec=http://www.thymeleaf.org/extras/spring-security>
+<head>
+    <meta charset="UTF-8">
+    <title>教师端主页</title>
+</head>
+<body>
+<div th:object="${teacheruser}" id="welcone"  >
+    欢迎您<p><span th:text="*{name}"></span>老师
+</div>
+<div id="meau">
+    <form action="/TeacherOption/Option" method="post">
+        <button class=" option btn btn-primary" type="submit" name = "option" value="selectAllStudent">查询本班学生</button>
+        <button class=" option btn btn-primary" type="submit" name = "option" value="selectStudent">查询个人学生</button>
+        <button class=" option btn btn-primary" type="submit" name = "option" value="inputStudent">录入个人学生</button>
+    </form>
+        <button class=" option btn btn-primary" th:onclick="modify([[${modifybool}]])" >修改个人信息</button>
+
+    <a href="/logout"><button class="btn btn-default option" id="exit" type="submit">退出</button></a>
+</div>
+
+
+<table  class="  table table-bordered" id="stutable" th:if="${stus}!=null" >
+    <th>
+        <td>学生ID</td><td>用户名</td><td>姓名</td><td>性别</td><td>班别</td><td>年龄</td><td>家庭住址</td><td th:if="${modifybool}">修改</td>
+    </th>
+    <form method="post" th:action="@{/TeacherOption/Modify}">
+    <tr th:each="stu,stuindex:${stus}">
+        <td th:text="${stuindex.index}+1" />
+        <td th:text="${stu.studentID}"/>
+        <td th:text="${stu.UserName}"/>
+        <td th:text="${stu.Name}"/>
+        <td th:text="${stu.Gendle}"/>
+        <td th:text="${stu.EClassName}"/>
+        <td th:text="${stu.Age}"/>
+        <td th:text="${stu.Address}"/>
+        <td >
+            <button type="submit" class="btn" th:name="stu" th:value="${stu.toObj()}" >修改</button>
+        </td>
+        </form>
+    </tr>
+
+</table>
+
+<table class=" table table-bordered" id="modifytable" th:if="${modifystu}!=null" method="post" >
+    <form  th:action="@{/TeacherOption/Modify/ModifyStudent}" method="post" th:object="${modifystu}">
+        <tr>
+            <td colspan="1"> 学生ID </td><td colspan="2"> <input class="form-control" type="text" th:value="*{StudentID}" th:field="*{StudentID}"></td>
+        </tr>
+        <tr>
+            <td colspan="1"> 用户名 </td><td colspan="2"> <input class="form-control" type="text" th:value="*{UserName}" th:field="*{UserName}"></td>
+        </tr>
+
+        <tr>
+            <td colspan="1"> 姓名 </td><td colspan="2"> <input class="form-control" type="text" th:value="*{Name}" th:field="*{Name}"></td>
+        </tr>
+        <tr>
+            <td colspan="1"> 性别 </td>
+            <td colspan="2">
+                <select  class=form-control th:value="*{Gendle}" th:field="*{Gendle}">
+                    <option value="男" th:selected="*{Gendle eq '男'}">男</option>
+                    <option value="女" th:selected="*{Gendle eq '女'}">女</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1"> 班级 </td><td colspan="2">
+            <select class=form-control  th:if="${eclasses}!=null" th:field="${modifystu.EClassid}">
+                <div th:each="eclass:${eclasses}">
+                    <option th:text="${eclass.eclassname}" th:selected="${modifystu.EClassid eq eclass.ideclass}" th:value="${eclass.ideclass}"></option>
+                </div>
+            </select>
+        </td>
+        </tr>
+        <tr>
+            <td colspan="1"> 年龄 </td><td colspan="2"> <input class="form-control" type="text" th:field="*{Age}"></td>
+        </tr>
+        <tr>
+            <td colspan="1"> 地址 </td><td colspan="2"> <input class="form-control" type="text" th:field="*{Address}"></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <button class="btn btn-primary" type="submit" id="inputsummit">提交</button>
+            </td>
+        </tr>
+    </form>
+</table>
+
+
+<table class=" table table-bordered" id="inputtable" th:if="${newstu}!=null" method="post" >
+    <form  th:action="@{/TeacherOption/Insert/InsertNewStudent}" method="post" th:object="${newstu}">
+        <tr>
+            <td colspan="1"> 学生ID </td><td colspan="2"> <input class="form-control" type="text" th:field="*{StudentID}"></td>
+        </tr>
+        <tr>
+            <td colspan="1"> 用户名 </td><td colspan="2"> <input class="form-control" type="text" th:field="*{UserName}"></td>
+        </tr>
+
+        <tr>
+            <td colspan="1"> 姓名 </td><td colspan="2"> <input class="form-control" type="text" th:field="*{Name}"></td>
+        </tr>
+        <tr>
+            <td colspan="1"> 性别 </td>
+            <td colspan="2">
+            <select  class=form-control th:field="*{Gendle}">
+            <option value="男">男</option>
+            <option value="女">女</option>
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1"> 班级 </td><td colspan="2">
+            <select class=form-control  th:if="${eclasses}!=null" th:field="${newstu.EClassid}">
+               <div th:each="eclass:${eclasses}">
+                    <option th:text="${eclass.eclassname}"  th:value="${eclass.ideclass}"></option>
+               </div>
+            </select>
+        </td>
+        </tr>
+        <tr>
+            <td colspan="1"> 年龄 </td><td colspan="2"> <input class="form-control" type="text" th:field="*{Age}"></td>
+        </tr>
+        <tr>
+            <td colspan="1"> 地址 </td><td colspan="2"> <input class="form-control" type="text" th:field="*{Address}"></td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <button class="btn btn-primary" type="submit" id="inputsummit">提交</button>
+            </td>
+        </tr>
+    </form>
+</table>
+
+<div class=" table" id="selectdiv" th:if="${selectbool}!=null" >
+    <form action="/TeacherOption/Select/SelectStudent" method="get">
+        <select class="form-control selects"  name="type">
+            <option value="UserName">学生用户名</option>
+            <option value="Name">学生名字</option>
+            <option value="Gendle">学生性别</option>
+            <option value="eClass">学生班别</option>
+            <option value="Age">学生年龄</option>
+            <option value="Address">学生地址</option>
+        </select><p/>
+        <input type="text " class="form-control selects"  name="value">
+        <button class="btn btn-primary selects" type="submit" id="inputsummit">提交</button>
+    </form>
+    </table>
+</div>
+
+
+
+
+</body>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+<script src="https://fastly.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<script src="https://fastly.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="/static/css/teacher_main.css">
+<script th:src="@{/static/js/teacher_main.js}"></script>
+</html>

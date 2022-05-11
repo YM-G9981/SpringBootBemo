@@ -1,0 +1,13 @@
+
+spring:
+  security:
+    user:
+      name: 123
+      password: 456
+  datasource:
+    url: jdbc:mysql://localhost:3306/spbootdata
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    static-path-pattern: /static/**
