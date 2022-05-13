@@ -1,7 +1,6 @@
 package com.example.springbootdemo.controller;
 
 import com.example.springbootdemo.dao.Student;
-import com.example.springbootdemo.dao.StudentAddEclass;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.ui.Model;
 
@@ -15,7 +14,7 @@ public interface TeacherPageController {
 
     String InsertNewStudent(Student student, HttpServletRequest request, HttpServletResponse response, Model model);
 
-    String ModifyStudent(StudentAddEclass modifystu, HttpServletRequest request, HttpServletResponse response, Model model);
+    String ModifyStudent(String modifyid, Student modifystu, HttpServletRequest request, HttpServletResponse response, Model model);
 
     String ModifyOption(String stu, HttpServletRequest request, HttpServletResponse response, Model model) throws JsonProcessingException;
 }

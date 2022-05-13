@@ -41,6 +41,6 @@ public interface StudentMapper {
     @Select("select eclassname from eclasses where ideclass = #{eclassid}")
     String FindClassesByeClassId(String eclassid);
 
-    @Delete("delete from students where studentid = ${studentid}")
+    @Delete("delete from students where studentid = #{studentid}")
     int DeleteStudentById(String studentid);
 }

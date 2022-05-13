@@ -3,14 +3,19 @@ package com.example.springbootdemo.controller.impl;
 import com.example.springbootdemo.config.UserNameConfig;
 import com.example.springbootdemo.controller.BaseController;
 import com.example.springbootdemo.controller.TeacherPageController;
-import com.example.springbootdemo.dao.*;
+import com.example.springbootdemo.dao.Student;
+import com.example.springbootdemo.dao.StudentAddEclass;
+import com.example.springbootdemo.dao.Teacher;
+import com.example.springbootdemo.dao.eClass;
 import com.example.springbootdemo.mapper.StudentMapper;
 import com.example.springbootdemo.mapper.TeacherMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -48,19 +53,20 @@ public class TeacherPageControllerImpl implements TeacherPageController { //
                 model.addAttribute("stus",students);
                 break;
             }
-            case "selectStudent":{
-                model.addAttribute("selectbool",true);
+            case "selectStudent": {
+                model.addAttribute("selectbool", true);
                 break;
             }
-            case "inputStudent":{
-                model.addAttribute("newstu",new Student());
+            case "inputStudent": {
+                model.addAttribute("newstu", new Student());
                 List<eClass> eclasses = findEClassByTeacher(teacher);
-                model.addAttribute("eclasses",eclasses);
+                model.addAttribute("eclasses", eclasses);
                 break;
             }
-            case "modifyStudent":{
-                model.addAttribute("modifybool",true);
-                break;
+            case "modifyTeacher": {
+                model.addAttribute("teacherself", teacher);
+                List<eClass> eclasses = findEClassByTeacher(teacher);
+                model.addAttribute("eclasses", eclasses);
             }
             default:
                 break;
@@ -78,21 +84,24 @@ public class TeacherPageControllerImpl implements TeacherPageController { //
 
     @Override
     @PostMapping("/Insert/InsertNewStudent")
-    public String InsertNewStudent(@ModelAttribute Student newstu, HttpServletRequest request, HttpServletResponse response, Model model){
+    public String InsertNewStudent(@ModelAttribute Student newstu, HttpServletRequest request, HttpServletResponse response, Model model) {
         try {
             studentMapper.InsertNewStudent(newstu);
-        } catch (Exception e){
+        } catch (Exception e) {
             return "/TeacherPage/InsertStuDent/Failure";
         }
         return "/TeacherPage/InsertStuDent/Success";
     }
+
     @RequestMapping("/Modify/ModifyStudent")
     @Override
-    public String ModifyStudent(StudentAddEclass modifystu, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String ModifyStudent(@ModelAttribute String modifyId, @ModelAttribute Student modifystu, HttpServletRequest request, HttpServletResponse response, Model model) {
         try {
-            studentMapper.DeleteStudentById(modifystu.getStudentID());
+            System.out.println(modifyId);
+            studentMapper.DeleteStudentById(modifyId);
+            System.out.println(modifystu);
             studentMapper.InsertNewStudent(modifystu);
-        }catch (Exception e){
+        } catch (Exception e) {
             return "/TeacherPage/DeleteStuDent/Failure";
         }
         return "/TeacherPage/DeleteStuDent/Success";
@@ -106,7 +115,8 @@ public class TeacherPageControllerImpl implements TeacherPageController { //
         Teacher teacher = findTeacherByUserName(username,request);
         List<eClass> classes = findEClassByTeacher(teacher);
         model.addAttribute("eclasses",classes);
-        model.addAttribute("modifystu",student);
+        model.addAttribute("modifystu", student);
+        model.addAttribute("modifyId", student.getStudentID());
         return baseController.success_login(response,request,model);
     }
 

@@ -31,8 +31,7 @@ class SpringBootDemoApplicationTests {
     StudentMapper studentMapper;
     @Test
      void main2() throws JsonProcessingException {
-//        List<StudentAddEclass> studrntaddEclasses = studentMapper.FindAllStudentByClass("1908001");
-//        studrntaddEclasses.forEach(a-> System.out.println(a));
+        studentMapper.DeleteStudentById("SSS");
 
     }
 }

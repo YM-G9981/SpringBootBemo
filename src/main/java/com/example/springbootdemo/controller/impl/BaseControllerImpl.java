@@ -39,7 +39,6 @@ public class BaseControllerImpl implements BaseController {
         String username = userNameConfig.getusername();
         UserData ud = userMapper.findUserByName(username);
         model.addAttribute("user",ud);
-        log.info(username +"登录成功！！！！");
         model.addAttribute("modifybool",false);
         if(ud.getRole().equals("student")){
             Student student = studentMapper.FindAllStudentByUsername(username);
